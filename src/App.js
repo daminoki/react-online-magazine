@@ -1,6 +1,52 @@
 function App() {
   return (
     <div className="wrapper clear">
+      <div className="overlay">
+      <div className="drawer">
+        <h2 className="mb-30">Корзина
+        <img className="removeBtn" src="img/button-remove.svg" alt="Remove" />
+        </h2>
+
+        <div className="items">
+          <div className="cartItem">
+            <div style={{ backgroundImage: 'url(/img/sneakers/1.svg)' }} className="cartItemImg"></div>
+            <div className="mr-20 flex">
+              <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
+              <b>12 999 руб.</b>
+            </div>
+            <img className="removeBtn" src="img/button-remove.svg" alt="Remove" />
+          </div>
+
+          <div className="cartItem d-flex align-center">
+            <div style={{ backgroundImage: 'url(/img/sneakers/1.svg)' }} className="cartItemImg"></div>
+            <div className="mr-20 flex">
+              <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
+              <b>12 999 руб.</b>
+            </div>
+            <img className="removeBtn" src="img/button-remove.svg" alt="Remove" />
+          </div>
+        </div>
+        
+        <div className="cartTotalBlock">
+          <ul>
+            <li>
+              <span>Итого:</span>
+              <div></div>
+              <b>21 498 руб.</b>
+            </li>
+            <li>
+              <span>Налог 5%:</span>
+              <div></div>
+              <b>1074 руб.</b>
+            </li>
+          </ul>
+          <button className="greenButton">Оформить заказ
+            <img src="/img/arrow.svg" alt="arrow" />
+          </button>
+        </div>
+      </div>
+    </div>
+
       <header className="d-flex justify-between  align-center p-40">
         <div className="d-flex align-center">
           <img width={40} height={40} src="/img/logo.svg" alt="" />
@@ -19,12 +65,21 @@ function App() {
           </li>
         </ul>
       </header>
-      <div className="content p-40">
-        <h1 className="mb-40">Все кроссовки</h1>
-        
 
-        <div className="d-flex justify-center">
+      <div className="content p-40">
+        <div className="d-flex align-center justify-between mb-40">
+          <h1>Все кроссовки</h1>
+          <div class="search-block d-flex">
+            <img src="/img/search-icon.svg" alt="Search" />
+            <input placeholder="Поиск..."></input>
+          </div>
+        </div>
+        
+        <div className="cards">
         <div className="card">
+          <div>
+            <img className="favorite" src="/img/unliked.svg" alt=" " />
+          </div>
           <img width={133} height={112} src="/img/sneakers/1.svg" alt="" />
           <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
           <div className="d-flex justify-between align-center">
