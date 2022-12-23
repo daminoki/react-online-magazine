@@ -9,7 +9,7 @@ function Drawer({ onClickClose, items }) {
                 <div className="items">
                     {
                         items.map((item) => {
-                            return <div className="cartItem">
+                            return <div key={item.id} className="cartItem">
                                         <div style={{ backgroundImage: `url(${item.imageUrl})` }} className="cartItemImg">
                                         </div>
                                         <div className="mr-20 flex">
