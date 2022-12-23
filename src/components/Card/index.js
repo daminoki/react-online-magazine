@@ -12,7 +12,7 @@ function Card({ imageUrl, title, price, onClickAdd, onClickFavorite }) {
     return (
         <div className={styles.card}>
             <div className={styles.favorite} onClick={onClickFavorite}>
-                <img src="/img/unliked.svg" alt=" " />
+                <img src="./img/unliked.svg" alt=" " />
             </div>
             <div className="d-flex flex-column align-center">
                 <img width={133} height={112} src={imageUrl} alt="" />
@@ -23,7 +23,7 @@ function Card({ imageUrl, title, price, onClickAdd, onClickFavorite }) {
                     <span>Цена:</span>
                     <b>{price} руб.</b>
                 </div>
-                <img className={styles.plus} onClick={handleClick} src={isAdded ? "/img/button-checked.svg" : "/img/button-plus.svg"} alt="Add" />
+                <img className={styles.plus} onClick={handleClick} src={isAdded ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />
             </div>
         </div>
     );

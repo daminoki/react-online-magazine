@@ -3,7 +3,7 @@ function Drawer({ onClickClose, items }) {
         <div className="overlay">
             <div className="drawer">
                 <h2 className="mb-30">Корзина
-                <img onClick={onClickClose} className="removeBtn" src="img/button-remove.svg" alt="Remove" />
+                <img onClick={onClickClose} className="removeBtn" src="./img/button-remove.svg" alt="Remove" />
                 </h2>
 
                 <div className="items">
@@ -16,7 +16,7 @@ function Drawer({ onClickClose, items }) {
                                             <p className="mb-5">{item.title}</p>
                                             <b>{item.price} руб.</b>
                                         </div>
-                                        <img className="removeBtn" src="img/button-remove.svg" alt="Remove" />
+                                        <img className="removeBtn" src="./img/button-remove.svg" alt="Remove" />
                                     </div>
                         })
                     }
@@ -36,7 +36,7 @@ function Drawer({ onClickClose, items }) {
                     </li>
                     </ul>
                     <button className="greenButton">Оформить заказ
-                    <img src="/img/arrow.svg" alt="arrow" />
+                    <img src="./img/arrow.svg" alt="arrow" />
                     </button>
                 </div>
             </div>
