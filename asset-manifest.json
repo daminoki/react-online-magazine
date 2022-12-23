@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "./static/css/main.3c208a33.css",
-    "main.js": "./static/js/main.937c5481.js",
-    "index.html": "./index.html",
-    "main.3c208a33.css.map": "./static/css/main.3c208a33.css.map",
-    "main.937c5481.js.map": "./static/js/main.937c5481.js.map"
+    "main.css": "/react-online-magazine/static/css/main.3c208a33.css",
+    "main.js": "/react-online-magazine/static/js/main.393d3c21.js",
+    "index.html": "/react-online-magazine/index.html",
+    "main.3c208a33.css.map": "/react-online-magazine/static/css/main.3c208a33.css.map",
+    "main.393d3c21.js.map": "/react-online-magazine/static/js/main.393d3c21.js.map"
   },
   "entrypoints": [
     "static/css/main.3c208a33.css",
-    "static/js/main.937c5481.js"
+    "static/js/main.393d3c21.js"
   ]
 }
