@@ -39,8 +39,9 @@ function App() {
         
         <div className="cards">
           {
-          items.map((obj) => (
-            <Card 
+          items.map((obj, index) => (
+            <Card
+              key={index}
               title={obj.title} 
               price={obj.price} 
               imageUrl={obj.imgUrl}
