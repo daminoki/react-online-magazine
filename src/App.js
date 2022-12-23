@@ -17,7 +17,10 @@ function App() {
   }, []);
 
   const onAddToCart = (item) => {
-    setCartItems(prev => [...prev, item]);
+   const cartItem = cartItems.find(i => i?.title === item.title)
+   cartItem
+   ? setCartItems(prev => [...prev.filter(i => i !== cartItem)])
+   : setCartItems(prev => [...prev, item]);
   }
 
   return (
