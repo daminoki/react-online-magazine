@@ -32,7 +32,7 @@ function App() {
         <div className="d-flex align-center justify-between mb-40">
           <h1>Все кроссовки</h1>
           <div className="search-block d-flex">
-            <img src="react-online-magazine/img/search-icon.svg" alt="Search" />
+            <img src="./react-online-magazine/img/search-icon.svg" alt="Search" />
             <input placeholder="Поиск..."></input>
           </div>
         </div>
