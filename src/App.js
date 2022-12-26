@@ -36,6 +36,11 @@ function App() {
     setSearchValue(event.target.value);
   }
 
+  const onFavorite = (item) => {
+    console.log(item);
+    axios.post(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites`, item);
+  }
+
   return (
     <div className="wrapper clear">
       {cartOpened && <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} onRemove={onRemoveCartItem} />}
@@ -62,6 +67,7 @@ function App() {
               price={obj.price} 
               image={obj.image}
               onClickAdd={(item) => onAddToCart(item)}
+              onClickFavorite={(item) => onFavorite(item)}
             />
           ))
           }          

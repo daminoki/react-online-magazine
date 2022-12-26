@@ -12,6 +12,16 @@
     .favorite {
       position: absolute;
       cursor: pointer;
+
+      button {
+        width: 24px;
+        height: 24px; 
+        background: none;
+        cursor: pointer;
+        border: none;
+        background-repeat: no-repeat;
+        opacity: 0.3;
+      }
     }
   
     span {

@@ -6,7 +6,7 @@ function Drawer({ onClickClose, items, onRemove }) {
         <div className={styles.overlay}>
             <div className={styles.drawer}>
                 <h2 className="mb-30">Корзина
-                <img onClick={onClickClose} className="removeBtn" src="./img/button-remove.svg" alt="Remove" />
+                <img onClick={onClickClose} className={styles.removeBtn} src="./img/button-remove.svg" alt="Remove" />
                 </h2>
 
                 {
@@ -49,10 +49,10 @@ function Drawer({ onClickClose, items, onRemove }) {
                     )
                     : (
                 <div className={styles.cartEmpty}>
-                    <img className="" width={120} height={120} src="./img/empty-cart.png" alt="Empty cart" />
+                    <img width={120} height={120} src="./img/empty-cart.png" alt="Empty cart" />
                     <h2>Корзина пустая</h2>
                     <p className="">Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ</p>
-                    <button className={styles.greenButton}>
+                    <button onClick={onClickClose} className={styles.greenButton}>
                         <img src="./img/arrow.svg" alt="Arrow" />Вернуться назад
                     </button> 
                 </div>
