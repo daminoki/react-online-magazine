@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Card from './components/Card';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
@@ -10,18 +11,25 @@ function App() {
   const [searchValue, setSearchValue] = React.useState('');
 
   React.useEffect(() => {
-    fetch('https://63a57933318b23efa794782b.mockapi.io/items').then(res => {
-      return res.json();
-    }).then(json => {
-      setItems(json);
-    })
+    axios.get('https://63a57933318b23efa794782b.mockapi.io/items').then(res => {
+      setItems(res.data[0].items);
+    });
+
+    axios.get(`https://63a57933318b23efa794782b.mockapi.io/items/1/cart`).then(res => {
+      setCartItems(res.data);
+    });
   }, []);
 
-  const onAddToCart = (item) => {
-   const cartItem = cartItems.find(i => i?.title === item.title)
-   cartItem
-   ? setCartItems(prev => [...prev.filter(i => i !== cartItem)])
-   : setCartItems(prev => [...prev, item]);
+  const onAddToCart = async (item) => {
+    await axios.post(`https://63a57933318b23efa794782b.mockapi.io/items/1/cart`, item);
+    axios.get(`https://63a57933318b23efa794782b.mockapi.io/items/1/cart`).then(res => {
+      setCartItems(res.data);
+    });
+  }
+
+  const onRemoveCartItem = (itemId) => {
+    axios.delete(`https://63a57933318b23efa794782b.mockapi.io/items/1/cart/${itemId}`)
+    setCartItems(prev => prev.filter(item => item.id !== itemId));
   }
 
   const handleSearchInput = (event) => {
@@ -30,7 +38,7 @@ function App() {
 
   return (
     <div className="wrapper clear">
-      {cartOpened && <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} />}
+      {cartOpened && <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} onRemove={onRemoveCartItem} />}
       <Header onClickCart={() => setCartOpened(true)} />
 
       <div className="content p-40">
@@ -44,19 +52,20 @@ function App() {
         
         <div className="cards">
           {
-          items.map((obj) => (
+          items
+          .filter(item => item.title.toLowerCase().includes(searchValue))
+          .map((obj) => (
             <Card
               key={obj.id}
               id={obj.id}
               title={obj.title} 
               price={obj.price} 
-              imageUrl={obj.imgUrl}
+              image={obj.image}
               onClickAdd={(item) => onAddToCart(item)}
             />
           ))
           }          
         </div>
-
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './Card.module.scss';
 
-function Card({ imageUrl, title, price, onClickAdd, onClickFavorite, id }) {
+function Card({ image, title, price, onClickAdd, onClickFavorite, id }) {
     const [isAdded, setIsAdded] = React.useState();
 
     const handleClick = () => {
         setIsAdded(!isAdded);
-        onClickAdd({ imageUrl, title, price, id });
+        onClickAdd({ image, title, price, id });
     }
 
     return (
@@ -15,7 +15,7 @@ function Card({ imageUrl, title, price, onClickAdd, onClickFavorite, id }) {
                 <img src="./img/unliked.svg" alt=" " />
             </div>
             <div className="d-flex flex-column align-center">
-                <img width={133} height={112} src={imageUrl} alt="" />
+                <img width={133} height={112} src={`./img/sneakers/${image}.svg`} alt="" />
                 <h5>{title}</h5>
             </div>
             <div className="d-flex justify-between align-center">

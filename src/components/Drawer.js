@@ -1,4 +1,6 @@
-function Drawer({ onClickClose, items }) {
+import React from "react";
+
+function Drawer({ onClickClose, items, onRemove }) {
     return (
         <div className="overlay">
             <div className="drawer">
@@ -10,15 +12,15 @@ function Drawer({ onClickClose, items }) {
                     {
                         items.map((item) => {
                             return <div key={item.id} className="cartItem">
-                                        <div style={{ backgroundImage: `url(${item.imageUrl})` }} className="cartItemImg">
+                                        <div style={{ backgroundImage: `url(./img/sneakers/${item.image}.svg)` }} className="cartItemImg">
                                         </div>
                                         <div className="mr-20 flex">
                                             <p className="mb-5">{item.title}</p>
                                             <b>{item.price} руб.</b>
                                         </div>
-                                        <img className="removeBtn" src="./img/button-remove.svg" alt="Remove" />
+                                        <img onClick={() => onRemove(item.id)} className="removeBtn" src="./img/button-remove.svg" alt="Remove" />
                                     </div>
-                        })
+                    })
                     }
                 </div>
             
