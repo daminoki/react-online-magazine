@@ -15,7 +15,7 @@ function Card({ image, title, price, onClickAdd, onClickFavorite, id }) {
                 <img src="./img/unliked.svg" alt=" " />
             </div>
             <div className="d-flex flex-column align-center">
-                <img width={133} height={112} src={`./img/sneakers/${image}.svg`} alt="" />
+                <img width={133} height={112} src={`./img/sneakers/${image}.png`} alt="" />
                 <h5>{title}</h5>
             </div>
             <div className="d-flex justify-between align-center">
