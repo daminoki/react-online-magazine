@@ -49,9 +49,23 @@ header {
 
   input {
     border: 0;
-    padding: 13px;
+    padding: 13px 0px 13px 13px;
     font-size: 16px;
     width: 200px;
+    overflow:hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &::-webkit-search-cancel-button {
+      width: 14px;
+      height: 14px;
+      margin-left: 10px;
+      background: url("../public/img/close-icon.svg") no-repeat 50% 50%;
+      background-size: 24px;
+      cursor: pointer;
+      appearance: none;
+      opacity: 0.5;
+    }
   }
 }
 
