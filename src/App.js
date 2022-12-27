@@ -21,6 +21,10 @@ function App() {
     axios.get(`https://63a57933318b23efa794782b.mockapi.io/items/1/cart`).then(res => {
       setCartItems(res.data);
     });
+    
+    axios.get(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites`).then(res => {
+      setFavorites(res.data);
+    });
   }, []);
 
   const onAddToCart = async (item) => {
@@ -39,19 +43,28 @@ function App() {
     setSearchValue(event.target.value);
   }
 
-  const onFavorite = (item) => {
+  const onFavorite = async (item) => {
     setItems(prev => prev.map(initialItem => {
       if (initialItem.id === item.id) {
-        initialItem.isFavorite = !initialItem.isFavorite
+        initialItem.isFavorite = !initialItem.isFavorite;
       }
       return initialItem;
     }));
 
-    setTimeout(() => {
-      axios.put(`https://63a57933318b23efa794782b.mockapi.io/items/1`, { id: 1, items })
-      axios.post(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites`, item);
-      setFavorites((prev) => [...prev, item]);
-    }, 0)
+    if (item.isFavorite) {
+      await axios.post(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites`, item);
+      await axios.get(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites`).then(res => {
+        setFavorites(res.data);
+      });
+      await axios.put(`https://63a57933318b23efa794782b.mockapi.io/items/1`, { id: 1, items })
+    } else {
+      const itemToDelete = favorites.find(fi => fi.title === item.title)
+      await axios.delete(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites/${itemToDelete.id}`)
+      await axios.get(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites`).then(res => {
+        setFavorites(res.data);
+      });
+      await axios.put(`https://63a57933318b23efa794782b.mockapi.io/items/1`, { id: 1, items })
+    }
   }
 
   return (
@@ -70,7 +83,7 @@ function App() {
       </Route>
 
       <Route path="/favorites" exact>
-        <Favorites />
+        <Favorites items={favorites} />
       </Route>
     </div>
   );

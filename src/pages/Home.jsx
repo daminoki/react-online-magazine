@@ -18,13 +18,9 @@ function Home({ items, searchValue, handleSearchInput, onAddToCart, onFavorite }
                 .map((obj) => (
                     <Card
                     key={obj.id}
-                    id={obj.id}
-                    title={obj.title} 
-                    price={obj.price} 
-                    image={obj.image}
+                    card={obj}
                     onClickAdd={(item) => onAddToCart(item)}
                     onClickFavorite={(item) => onFavorite(item)}
-                    isFavorite={obj.isFavorite}
                     />
                 ))
                 }          
