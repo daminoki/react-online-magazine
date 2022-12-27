@@ -1,12 +1,15 @@
 import React from 'react';
 import axios from 'axios';
-import Card from './components/Card';
+import { Route } from 'react-router-dom';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
+import Home from './pages/Home';
+import Favorites from './pages/Favorites';
 
 function App() {
   const [items, setItems] = React.useState([]);
-  const [cartItems, setCartItems] = React.useState([])
+  const [cartItems, setCartItems] = React.useState([]);
+  const [favorites, setFavorites] = React.useState([]);
   const [cartOpened, setCartOpened] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
 
@@ -37,8 +40,18 @@ function App() {
   }
 
   const onFavorite = (item) => {
-    console.log(item);
-    axios.post(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites`, item);
+    setItems(prev => prev.map(initialItem => {
+      if (initialItem.id === item.id) {
+        initialItem.isFavorite = !initialItem.isFavorite
+      }
+      return initialItem;
+    }));
+
+    setTimeout(() => {
+      axios.put(`https://63a57933318b23efa794782b.mockapi.io/items/1`, { id: 1, items })
+      axios.post(`https://63a57933318b23efa794782b.mockapi.io/items/1/favorites`, item);
+      setFavorites((prev) => [...prev, item]);
+    }, 0)
   }
 
   return (
@@ -46,33 +59,19 @@ function App() {
       {cartOpened && <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} onRemove={onRemoveCartItem} />}
       <Header onClickCart={() => setCartOpened(true)} />
 
-      <div className="content p-40">
-        <div className="d-flex align-center justify-between mb-40">
-          <h1>{searchValue ? `Поиск по запросу: "${searchValue}"` : `Все кроссовки`}</h1>
-          <div className="search-block d-flex">
-            <img src="./img/search-icon.svg" alt="Search" />
-            <input className="search" type="search" value={searchValue} onChange={handleSearchInput} placeholder="Поиск..."></input>
-          </div>
-        </div>
-        
-        <div className="cards">
-          {
-          items
-          .filter(item => item.title.toLowerCase().includes(searchValue))
-          .map((obj) => (
-            <Card
-              key={obj.id}
-              id={obj.id}
-              title={obj.title} 
-              price={obj.price} 
-              image={obj.image}
-              onClickAdd={(item) => onAddToCart(item)}
-              onClickFavorite={(item) => onFavorite(item)}
-            />
-          ))
-          }          
-        </div>
-      </div>
+      <Route path="/" exact>
+        <Home 
+        items={items} 
+        searchValue={searchValue}
+        handleSearchInput={handleSearchInput}
+        onAddToCart={onAddToCart}
+        onFavorite={onFavorite}
+        />
+      </Route>
+
+      <Route path="/favorites" exact>
+        <Favorites />
+      </Route>
     </div>
   );
 }

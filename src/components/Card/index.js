@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Card.module.scss';
 
-function Card({ image, title, price, onClickAdd, onClickFavorite, id }) {
+function Card({ image, title, price, onClickAdd, onClickFavorite, id, isFavorite }) {
     const [isAdded, setIsAdded] = React.useState();
-    const [isFavorite, setIsFavorite] = React.useState();
+    const [isFavorited, setIsFavorite] = React.useState(isFavorite);
 
     const handleClick = () => {
         setIsAdded(!isAdded);
@@ -11,15 +11,15 @@ function Card({ image, title, price, onClickAdd, onClickFavorite, id }) {
     }
 
     const handleFavoriteClick = () => {
-        setIsFavorite(!isFavorite);
-        onClickFavorite({ image, title, price, id });
+        setIsFavorite(!isFavorited);
+        onClickFavorite({ image, title, price, id, isFavorited });
     }
 
     return (
         <div className={styles.card}>
             <div className={styles.favorite} onClick={handleFavoriteClick}>
                 <button>
-                    <img src={isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />
+                    <img src={isFavorited ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />
                 </button>
             </div>
             <div className="d-flex flex-column align-center">
