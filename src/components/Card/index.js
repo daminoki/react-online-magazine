@@ -3,7 +3,7 @@ import styles from './Card.module.scss';
 
 function Card({ card, onClickAdd, onClickFavorite }) {
     const [isAdded, setIsAdded] = React.useState(card.isAdded);
-    const [isFavorite, setIsFavorited] = React.useState(card.isFavorite);
+    const [isFavorite, setIsFavorite] = React.useState(card.isFavorite);
 
     const handleClick = () => {
         setIsAdded(!isAdded);
@@ -11,7 +11,7 @@ function Card({ card, onClickAdd, onClickFavorite }) {
     }
 
     const handleFavoriteClick = () => {
-        setIsFavorited(!isFavorite);
+        setIsFavorite(!isFavorite);
     }
 
     const isFirstRender = React.useRef(true)
@@ -21,9 +21,8 @@ function Card({ card, onClickAdd, onClickFavorite }) {
             isFirstRender.current = false;
             return;
         }
-
-        // rewrite card.isFavorite with state isFavorite that changed
         onClickFavorite({ ...card, isFavorite: isFavorite});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFavorite]);
 
     return (

@@ -19,7 +19,7 @@ function Header(props) {
                 </li>
                 <li>
                     <Link to="/favorites">
-                        <img className="favorites" src="./img/card-liked.svg" alt="Закладки" />
+                        <img width={18} height={18} className="favorites" src="./img/favorites.svg" alt="Закладки" />
                     </Link>
                 </li>
                 <li>
