@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './Card.module.scss';
-import ContentLoader  from 'react-content-loader';
 
 function Card({ card, onClickAdd, onClickFavorite, added = false, loading = false }) {
     const [isAdded, setIsAdded] = React.useState(added);

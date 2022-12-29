@@ -36,9 +36,9 @@ function App() {
 
   const onAddToCart = async (item) => {
     try {
-      if (cartItems.find(i => Number(i.id) === Number(item.id))) {
+      if (cartItems.find(i => i.title === item.title)) {
         axios.delete(`https://63a57933318b23efa794782b.mockapi.io/cart/${item.id}`);
-        setCartItems(prev => prev.filter(i => Number(i.id) !== Number(item.id)))
+        setCartItems(prev => prev.filter(i => i.title !== item.title))
       } else {
         const { data } = await axios.post(`https://63a57933318b23efa794782b.mockapi.io/cart`, item);
         setCartItems(prev => [...prev, data]);
