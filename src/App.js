@@ -6,6 +6,8 @@ import Drawer from './components/Drawer';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 
+export const AppContext = React.createContext({});
+
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
@@ -67,8 +69,14 @@ function App() {
     }
   } 
 
+  const isItemAdded = (title) => {
+    console.log(cartItems)
+    return cartItems.some((item) => item.title === title);
+  }
+
   return (
-    <div className="wrapper clear">
+    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded }}>
+      <div className="wrapper clear">
       {cartOpened && <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} onRemove={onRemoveCartItem} />}
       <Header onClickCart={() => setCartOpened(true)} />
 
@@ -86,12 +94,12 @@ function App() {
 
       <Route path="/favorites" exact>
         <Favorites 
-        items={favorites}
         onAddToCart={onAddToCart}
         onFavorite={onFavorite}
          />
       </Route>
     </div>
+    </AppContext.Provider>
   );
 }
 

@@ -1,9 +1,10 @@
-import Card from '../components/Card';
-import CardSkeleton from '../components/CardSkeleton';
+import Card from '../components/Card'
+import CardSkeleton from '../components/CardSkeleton'
+import React from 'react'
+import { AppContext } from '../App'
 
 function Home({ 
     items,
-    cartItems, 
     searchValue, 
     handleSearchInput, 
     onAddToCart, 
@@ -24,7 +25,6 @@ function Home({
                         card={obj}
                         onClickAdd={(item) => onAddToCart(item)}
                         onClickFavorite={(item) => onFavorite(item)}
-                        added={cartItems.some(item => item.title === obj.title)}
                         loading={isLoading}
                     />
                 ))

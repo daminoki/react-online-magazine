@@ -1,12 +1,12 @@
-import React from 'react';
-import styles from './Card.module.scss';
+import React from 'react' 
+import styles from './Card.module.scss'
+import { AppContext } from '../../App'
 
 function Card({ card, onClickAdd, onClickFavorite, added = false, loading = false }) {
-    const [isAdded, setIsAdded] = React.useState(added);
     const [isFavorite, setIsFavorite] = React.useState(card.isFavorite);
+    const { isItemAdded } = React.useContext(AppContext);
 
     const handleClick = () => {
-        setIsAdded(!isAdded);
         onClickAdd(card);
     }
 
@@ -41,7 +41,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, loading = fals
                             <span>Цена:</span>
                             <b>{card.price} руб.</b>
                         </div>
-                        <img className={styles.plus} onClick={handleClick} src={isAdded ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />
+                        <img className={styles.plus} onClick={handleClick} src={isItemAdded(card.title) ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />
                     </div>
 
         </div>

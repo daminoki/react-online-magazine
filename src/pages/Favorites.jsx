@@ -1,6 +1,10 @@
+import React from 'react'
 import Card from '../components/Card'
+import { AppContext } from '../App'
 
-function Favorites({ items, onAddToCart, onFavorite }) {
+function Favorites({ onAddToCart, onFavorite }) {
+const { favorites } = React.useContext(AppContext);
+
     return (
         <div className="content p-40">
             <div className="d-flex align-center justify-between mb-40">
@@ -9,7 +13,7 @@ function Favorites({ items, onAddToCart, onFavorite }) {
 
             <div className="cards">
                 {
-                items
+                favorites
                 .map((obj) => (
                     <Card
                         key={obj.id}
