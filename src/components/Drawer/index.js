@@ -1,5 +1,6 @@
 import React from "react";
 import styles from './Drawer.module.scss';
+import Info from "../Info/Info";
 
 function Drawer({ onClickClose, items, onRemove }) {
     return (
@@ -48,14 +49,7 @@ function Drawer({ onClickClose, items, onRemove }) {
                 </>
                     )
                     : (
-                <div className={styles.cartEmpty}>
-                    <img width={120} height={120} src="./img/empty-cart.png" alt="Empty cart" />
-                    <h2>Корзина пустая</h2>
-                    <p className="">Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ</p>
-                    <button onClick={onClickClose} className={styles.greenButton}>
-                        <img src="./img/arrow.svg" alt="Arrow" />Вернуться назад
-                    </button> 
-                </div>
+                       <Info title="Корзина пустая" description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" image="./img/empty-cart.png" />
                     )
                 }
 
