@@ -1,8 +1,17 @@
 import React from "react";
 import styles from './Drawer.module.scss';
 import Info from "../Info/Info";
+import { AppContext } from '../../App'
 
 function Drawer({ onClickClose, items, onRemove }) {
+    const { setCartItems } = React.useContext(AppContext);
+    const [isOrderComplete, setIsOrderComplete] = React.useState(false);
+
+    const onClickOrder = () => {
+        setIsOrderComplete(true); 
+        setCartItems([]);
+    }
+
     return (
         <div className={styles.overlay}>
             <div className={styles.drawer}>
@@ -42,17 +51,20 @@ function Drawer({ onClickClose, items, onRemove }) {
                         <b>1074 руб.</b>
                     </li>
                     </ul>
-                    <button className={styles.greenButton}>Оформить заказ
+                    <button onClick={onClickOrder} className={styles.greenButton}>Оформить заказ
                     <img src="./img/arrow.svg" alt="arrow" />
                     </button>
                 </div>
                 </>
                     )
                     : (
-                       <Info title="Корзина пустая" description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" image="./img/empty-cart.png" />
+                       <Info
+                            title={isOrderComplete ? "Заказ оформлен!" : "Корзина пустая"}
+                            description={isOrderComplete ? "text" : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" }
+                            image="./img/empty-cart.png" 
+                        />
                     )
                 }
-
             </div>
         </div>
     )
