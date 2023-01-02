@@ -1,15 +1,30 @@
 import React from "react";
 import styles from './Drawer.module.scss';
 import Info from "../Info/Info";
-import { AppContext } from '../../App'
+import { AppContext } from '../../App';
+import axios from 'axios';
 
 function Drawer({ onClickClose, items, onRemove }) {
-    const { setCartItems } = React.useContext(AppContext);
+    const { cartItems, setCartItems } = React.useContext(AppContext);
     const [isOrderComplete, setIsOrderComplete] = React.useState(false);
+    const [orderId, setOrderId] = React.useState(null);
+    const [isLoading, setIsLoading] = React.useState(false);
 
-    const onClickOrder = () => {
-        setIsOrderComplete(true); 
-        setCartItems([]);
+    const onClickOrder = async () => {
+        try {
+            setIsLoading(true);
+            const {data} = await axios.post('https://63a57933318b23efa794782b.mockapi.io/orders', {
+                items: cartItems,
+            });
+            await axios.put('https://63a57933318b23efa794782b.mockapi.io/cart', []);
+            setOrderId(data.id);
+            setIsOrderComplete(true); 
+            setCartItems([]);
+
+        } catch (error) {
+            alert('Ошибка при создании заказа');
+        }
+        setIsLoading(false);
     }
 
     return (
@@ -51,7 +66,7 @@ function Drawer({ onClickClose, items, onRemove }) {
                         <b>1074 руб.</b>
                     </li>
                     </ul>
-                    <button onClick={onClickOrder} className={styles.greenButton}>Оформить заказ
+                    <button disabled={isLoading} onClick={onClickOrder} className={styles.greenButton}>Оформить заказ
                     <img src="./img/arrow.svg" alt="arrow" />
                     </button>
                 </div>
@@ -60,8 +75,8 @@ function Drawer({ onClickClose, items, onRemove }) {
                     : (
                        <Info
                             title={isOrderComplete ? "Заказ оформлен!" : "Корзина пустая"}
-                            description={isOrderComplete ? "text" : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" }
-                            image="./img/empty-cart.png" 
+                            description={isOrderComplete ? `Ваш заказ №${orderId} скоро будет передан курьерской доставкой` : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ" }
+                            image={isOrderComplete ? "./img/complete-order.jpg" : "./img/empty-cart.png"}
                         />
                     )
                 }

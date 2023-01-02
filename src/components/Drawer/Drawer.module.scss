@@ -137,6 +137,11 @@
     &:active {
       background-color: darken(#9DD558, 5%);
     }
+
+    &:disabled {
+      background-color: #bebebe;
+      cursor: default;
+    }
 }
 
 .cartEmpty {
