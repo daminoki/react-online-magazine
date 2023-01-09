@@ -40,7 +40,6 @@ function Orders() {
                     <Card
                         key={index}
                         card={obj}
-                        loading={isLoading}
                     />
                 ))
                 }          

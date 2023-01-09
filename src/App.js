@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import Orders from './pages/Orders';
 
+//TODO: new method with api
+
 export const AppContext = React.createContext({});
 
 function App() {
@@ -19,9 +21,11 @@ function App() {
 
   React.useEffect(() => {
     async function fetchData() {
-      const cartResponse = await axios.get(`https://63a57933318b23efa794782b.mockapi.io/cart`);
-      const favoritesResponse = await axios.get(`https://63a57933318b23efa794782b.mockapi.io/favorites`);
-      const itemsResponse = await axios.get('https://63a57933318b23efa794782b.mockapi.io/items');
+      const [ cartResponse, favoritesResponse, itemsResponse ] = await Promise.all([
+        axios.get(`https://63a57933318b23efa794782b.mockapi.io/cart`), 
+        axios.get(`https://63a57933318b23efa794782b.mockapi.io/favorites`), 
+        axios.get(`https://63a57933318b23efa794782b.mockapi.io/items`)
+      ])
 
       setIsLoading(false);
 
@@ -47,7 +51,7 @@ function App() {
         setCartItems(prev => [...prev, data]);
       }
     } catch (error) {
-      alert('error!');
+      alert('Не удалось добавить в корзину');
     }
   }
   

@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Card.module.scss'
 import { AppContext } from '../../App'
 
-function Card({ card, onClickAdd, onClickFavorite, added = false, loading = false }) {
+function Card({ card, onClickAdd, onClickFavorite, added = false }) {
     const [isFavorite, setIsFavorite] = React.useState(card.isFavorite);
     const { isItemAdded } = React.useContext(AppContext);
 

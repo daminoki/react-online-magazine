@@ -25,7 +25,6 @@ function Home({
                         card={obj}
                         onClickAdd={(item) => onAddToCart(item)}
                         onClickFavorite={(item) => onFavorite(item)}
-                        loading={isLoading}
                     />
                 ))
         )
