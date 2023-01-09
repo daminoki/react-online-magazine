@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Drawer from './components/Drawer';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
+import Orders from './pages/Orders';
 
 export const AppContext = React.createContext({});
 
@@ -74,7 +75,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, setCartOpened, setCartItems }}>
+    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, setCartOpened, setCartItems, onAddToCart, onFavorite }}>
       <div className="wrapper clear">
       {cartOpened && <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} onRemove={onRemoveCartItem} />}
       <Header onClickCart={() => setCartOpened(true)} />
@@ -96,6 +97,10 @@ function App() {
         onAddToCart={onAddToCart}
         onFavorite={onFavorite}
          />
+      </Route>
+
+      <Route path="/orders" exact>
+        <Orders />
       </Route>
     </div>
     </AppContext.Provider>

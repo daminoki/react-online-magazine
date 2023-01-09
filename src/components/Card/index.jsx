@@ -29,7 +29,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, loading = fals
         <div className={styles.card}>
             <div className={styles.favorite}>
                 <button onClick={handleFavoriteClick}>
-                    <img src={isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />
+                    {onClickFavorite && <img src={isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />}
                 </button>
                     </div>
                     <div className="d-flex flex-column align-center">
@@ -41,7 +41,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, loading = fals
                             <span>Цена:</span>
                             <b>{card.price} руб.</b>
                         </div>
-                        <img className={styles.plus} onClick={handleClick} src={isItemAdded(card.title) ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />
+                        {onClickAdd && <img className={styles.plus} onClick={handleClick} src={isItemAdded(card.title) ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />}
                     </div>
 
         </div>
