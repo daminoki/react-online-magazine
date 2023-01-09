@@ -70,7 +70,6 @@ function App() {
   } 
 
   const isItemAdded = (title) => {
-    console.log(cartItems)
     return cartItems.some((item) => item.title === title);
   }
 
