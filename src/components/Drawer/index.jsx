@@ -6,12 +6,20 @@ import axios from 'axios';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
 
-function Drawer({ onClickClose, items, onRemove }) {
+function Drawer({ onClickClose, items, onRemove, opened }) {
     const { cartItems, setCartItems } = React.useContext(AppContext);
     const [isOrderComplete, setIsOrderComplete] = React.useState(false);
     const [orderId, setOrderId] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(false);
     const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
+
+    React.useEffect(() => {
+        if (opened) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      }, [opened]);
 
     const onClickOrder = async () => {
         try {
@@ -36,8 +44,8 @@ function Drawer({ onClickClose, items, onRemove }) {
     }
 
     return (
-        <div className={styles.overlay}>
-            <div className={styles.drawer}>
+        <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
+            <div className={`${styles.drawer}`}>
                 <h2 className="mb-30">Корзина
                 <img onClick={onClickClose} className={styles.removeBtn} src="./img/button-remove.svg" alt="Remove" />
                 </h2>
