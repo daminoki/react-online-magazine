@@ -10,6 +10,10 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClic
         onClickAdd(card);
     }
 
+    const onCardClick = () => {
+        handleCardClick(card);
+    }
+
     const handleFavoriteClick = () => {
         setIsFavorite(!isFavorite);
     }
@@ -33,7 +37,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClic
                 </button>
             </div>
             <div className="d-flex flex-column align-center">
-                <img onClick={handleCardClick} className={styles.goodsImg} width={133} height={112} src={`./img/sneakers/${card.image}.png`} alt="" />
+                <img className="cu-p" onClick={onCardClick} width={133} height={112} src={`./img/sneakers/${card.image}.png`} alt="" />
                 <h5>{card.title}</h5>
             </div>
             <div className="d-flex justify-between align-center">

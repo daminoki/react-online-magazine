@@ -1,16 +1,17 @@
 import React from 'react';
 import styles from "./CardPopup.module.scss"
 
-function CardPopup({ opened, handleClickClose }) {
+function CardPopup({ currentItem, opened, handleClickClose }) {
+    console.log(currentItem)
     return (
     <div className={`${styles.overlay} ${opened && styles['overlay-visible']}`}>
         <div className={styles.container}>
-            <img src="./img/sneakers/9.png" alt="Кроссовки" width={280} height={250}></img>
+            <img src={`./img/sneakers/${currentItem.image}.png`} alt="Кроссовки" width={240} height={200}></img>
             <div>
-                <h5>Sneakers</h5>
+                <h5>{currentItem.title}</h5>
                 <span>Price:</span>
-                <b>12999 руб.</b>
-                <p>Rating: 5/5</p>
+                <b>{currentItem.price} руб.</b>
+                <p>Rating: {currentItem.rating}/5</p>
                 <p>Description?</p>
             </div>
             <button onClick={handleClickClose} className={styles['close-button']}>

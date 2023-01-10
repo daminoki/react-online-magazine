@@ -19,8 +19,9 @@ function App() {
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
   const [totalCount, setTotalCount] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
   const [cardPopupOpened, setCardPopupOpened] = React.useState(false);
+  const [currentItem, setCurrentItem] = React.useState([]);
 
   const searchParams = {
     p: 1,
@@ -36,7 +37,7 @@ function App() {
 
   React.useEffect(() => {
     async function fetchData() {
-      const [ cartResponse, favoritesResponse, itemsResponse ] = await Promise.all([
+      const [ cartResponse, favoritesResponse ] = await Promise.all([
         axios.get(`https://63a57933318b23efa794782b.mockapi.io/cart`), 
         axios.get(`https://63a57933318b23efa794782b.mockapi.io/favorites`),
         fetchItems()
@@ -99,8 +100,9 @@ function App() {
     return cartItems.some((item) => item.title === title);
   }
   
-  const handleCardClick = () => {
+  const handleCardClick = (item) => {
     setCardPopupOpened(true);
+    setCurrentItem(item);
   }
 
 
@@ -109,7 +111,7 @@ function App() {
       <div className="wrapper clear">
         <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} onRemove={onRemoveCartItem} opened={cartOpened} />
         <Header onClickCart={() => setCartOpened(true)} />
-        <CardPopup opened={cardPopupOpened} handleClickClose={() => setCardPopupOpened(false)} />
+        <CardPopup currentItem={currentItem} opened={cardPopupOpened} handleClickClose={(item) => setCardPopupOpened(false)} />
 
         <Route path="/" exact>
           <Home 
