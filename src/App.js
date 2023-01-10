@@ -6,8 +6,7 @@ import Drawer from './components/Drawer';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import Orders from './pages/Orders';
-
-//TODO: new method with api
+import Pagination from './components/Pagination';
 
 export const AppContext = React.createContext({});
 
@@ -18,24 +17,46 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [itemsPerPage] = React.useState(8);
+
+  const searchParams = {
+    p: 1,
+    l: 1,
+    search: ""
+  }
+
+  const fetchItems = async () => {
+    const { data } = await axios.get(`https://63a57933318b23efa794782b.mockapi.io/items`, { params: searchParams } );
+    setItems(data);
+  }
 
   React.useEffect(() => {
     async function fetchData() {
       const [ cartResponse, favoritesResponse, itemsResponse ] = await Promise.all([
         axios.get(`https://63a57933318b23efa794782b.mockapi.io/cart`), 
-        axios.get(`https://63a57933318b23efa794782b.mockapi.io/favorites`), 
-        axios.get(`https://63a57933318b23efa794782b.mockapi.io/items`)
+        axios.get(`https://63a57933318b23efa794782b.mockapi.io/favorites`),
+        fetchItems()
       ])
 
       setIsLoading(false);
 
-      setItems(itemsResponse.data);
       setCartItems(cartResponse.data);
       setFavorites(favoritesResponse.data);
     }
 
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => {
+    searchParams.p = pageNumber;
+    fetchItems();
+  };
 
   const handleSearchInput = (event) => {
     setSearchValue(event.target.value);
@@ -62,9 +83,9 @@ function App() {
 
   const onFavorite = async (item) => {
     try { 
-        if (favorites.find(favItem => favItem.id === item.id)) {
+        if (favorites.find(favItem => favItem.title === item.title)) {
           axios.delete(`https://63a57933318b23efa794782b.mockapi.io/favorites/${item.id}`)
-          setFavorites(prev => prev.filter(i => i.id !== item.id));
+          setFavorites(prev => prev.filter(i => i.title !== item.title));
         } else {
           const { data } = await axios.post(`https://63a57933318b23efa794782b.mockapi.io/favorites`, item);
           setFavorites(prev => [...prev, data]);
@@ -94,6 +115,7 @@ function App() {
           onFavorite={onFavorite}
           isLoading={isLoading}
           />
+          <Pagination itemsPerPage={itemsPerPage} totalItems={items.length} paginate={paginate} />
         </Route>
 
         <Route path="/favorites" exact>

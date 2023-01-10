@@ -1,7 +1,6 @@
 import Card from '../components/Card'
 import CardSkeleton from '../components/CardSkeleton'
 import React from 'react'
-import { AppContext } from '../App'
 
 function Home({ 
     items,

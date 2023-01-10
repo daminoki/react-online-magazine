@@ -14,7 +14,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false }) {
         setIsFavorite(!isFavorite);
     }
 
-    const isFirstRender = React.useRef(true)
+    const isFirstRender = React.useRef(true);
 
     React.useEffect(() => {
         if (isFirstRender.current) {
@@ -31,19 +31,18 @@ function Card({ card, onClickAdd, onClickFavorite, added = false }) {
                 <button onClick={handleFavoriteClick}>
                     {onClickFavorite && <img src={isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />}
                 </button>
-                    </div>
-                    <div className="d-flex flex-column align-center">
-                        <img width={133} height={112} src={`./img/sneakers/${card.image}.png`} alt="" />
-                        <h5>{card.title}</h5>
-                    </div>
-                    <div className="d-flex justify-between align-center">
-                        <div className="d-flex flex-column">
-                            <span>Цена:</span>
-                            <b>{card.price} руб.</b>
-                        </div>
-                        {onClickAdd && <img className={styles.plus} onClick={handleClick} src={isItemAdded(card.title) ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />}
-                    </div>
-
+            </div>
+            <div className="d-flex flex-column align-center">
+                <img width={133} height={112} src={`./img/sneakers/${card.image}.png`} alt="" />
+                <h5>{card.title}</h5>
+            </div>
+            <div className="d-flex justify-between align-center">
+                <div className="d-flex flex-column">
+                    <span>Цена:</span>
+                    <b>{card.price} руб.</b>
+                </div>
+                {onClickAdd && <img className={styles.plus} onClick={handleClick} src={isItemAdded(card.title) ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />}
+            </div>
         </div>
     );
 };

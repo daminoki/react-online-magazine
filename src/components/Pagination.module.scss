@@ -1,0 +1,17 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.pageItem {
+    font-weight: 400;
+    font-size: 14px;
+    padding: 20px 0;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
