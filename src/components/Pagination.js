@@ -1,12 +1,13 @@
 import React from "react";
 import styles from './Pagination.module.scss';
 
-function Pagination ({ itemsPerPage, totalItems, paginate }) {
-    const pageNumbers =[1,2,3];
+function Pagination ({ totalCount, paginate }) {
+    const pageNumbers =[];
 
-    // for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-    //     pageNumbers.push(i);
-    // }
+    for (let i = 1; i <= Math.ceil(totalCount / 8); i++) {
+        pageNumbers.push(i);
+    }
+
 
     return (
         <nav>

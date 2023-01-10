@@ -17,18 +17,18 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [itemsPerPage] = React.useState(8);
+  const [totalCount, setTotalCount] = React.useState(0);
 
   const searchParams = {
     p: 1,
-    l: 1,
+    l: 8,
     search: ""
   }
 
   const fetchItems = async () => {
-    const { data } = await axios.get(`https://63a57933318b23efa794782b.mockapi.io/items`, { params: searchParams } );
-    setItems(data);
+    const { data: { items, count } } = await axios.get(`https://63a57933318b23efa794782b.mockapi.io/items`, { params: searchParams } );
+    setItems(items);
+    setTotalCount(count);
   }
 
   React.useEffect(() => {
@@ -107,15 +107,15 @@ function App() {
 
         <Route path="/" exact>
           <Home 
-          items={items} 
-          cartItems={cartItems}
-          searchValue={searchValue}
-          handleSearchInput={handleSearchInput}
-          onAddToCart={onAddToCart}
-          onFavorite={onFavorite}
-          isLoading={isLoading}
+            items={items} 
+            cartItems={cartItems}
+            searchValue={searchValue}
+            handleSearchInput={handleSearchInput}
+            onAddToCart={onAddToCart}
+            onFavorite={onFavorite}
+            isLoading={isLoading}
           />
-          <Pagination itemsPerPage={itemsPerPage} totalItems={items.length} paginate={paginate} />
+          <Pagination totalCount={totalCount} paginate={paginate} />
         </Route>
 
         <Route path="/favorites" exact>
