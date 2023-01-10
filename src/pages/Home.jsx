@@ -8,7 +8,8 @@ function Home({
     handleSearchInput, 
     onAddToCart, 
     onFavorite,
-    isLoading
+    isLoading,
+    handleCardClick
 }) {
 
     const renderItems = () => {
@@ -24,6 +25,7 @@ function Home({
                         card={obj}
                         onClickAdd={(item) => onAddToCart(item)}
                         onClickFavorite={(item) => onFavorite(item)}
+                        handleCardClick={handleCardClick}
                     />
                 ))
         )

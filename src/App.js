@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import Orders from './pages/Orders';
 import Pagination from './components/Pagination';
+import CardPopup from './components/CardPopup';
 
 export const AppContext = React.createContext({});
 
@@ -19,6 +20,7 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [totalCount, setTotalCount] = React.useState(0);
   const [currentPage, setCurrentPage] = React.useState(0);
+  const [cardPopupOpened, setCardPopupOpened] = React.useState(false);
 
   const searchParams = {
     p: 1,
@@ -96,24 +98,32 @@ function App() {
   const isItemAdded = (title) => {
     return cartItems.some((item) => item.title === title);
   }
+  
+  const handleCardClick = () => {
+    setCardPopupOpened(true);
+  }
+
 
   return (
     <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, setCartOpened, setCartItems, onAddToCart, onFavorite }}>
       <div className="wrapper clear">
         <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} onRemove={onRemoveCartItem} opened={cartOpened} />
         <Header onClickCart={() => setCartOpened(true)} />
+        <CardPopup opened={cardPopupOpened} handleClickClose={() => setCardPopupOpened(false)} />
 
         <Route path="/" exact>
           <Home 
-            items={items} 
+            items={items}
             cartItems={cartItems}
             searchValue={searchValue}
             handleSearchInput={handleSearchInput}
             onAddToCart={onAddToCart}
             onFavorite={onFavorite}
             isLoading={isLoading}
+            handleCardClick={handleCardClick}
           />
           <Pagination totalCount={totalCount} paginate={paginate} isLoading={isLoading} currentPage={currentPage} />
+
         </Route>
 
         <Route path="/favorites" exact>

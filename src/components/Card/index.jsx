@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Card.module.scss'
 import { AppContext } from '../../App'
 
-function Card({ card, onClickAdd, onClickFavorite, added = false }) {
+function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClick }) {
     const [isFavorite, setIsFavorite] = React.useState(card.isFavorite);
     const { isItemAdded } = React.useContext(AppContext);
 
@@ -33,7 +33,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false }) {
                 </button>
             </div>
             <div className="d-flex flex-column align-center">
-                <img width={133} height={112} src={`./img/sneakers/${card.image}.png`} alt="" />
+                <img onClick={handleCardClick} className={styles.goodsImg} width={133} height={112} src={`./img/sneakers/${card.image}.png`} alt="" />
                 <h5>{card.title}</h5>
             </div>
             <div className="d-flex justify-between align-center">
