@@ -1,21 +1,23 @@
 import React from "react";
 import styles from './Pagination.module.scss';
 
-function Pagination ({ totalCount, paginate }) {
+function Pagination ({ totalCount, paginate, isLoading, currentPage }) {
     const pageNumbers =[];
 
     for (let i = 1; i <= Math.ceil(totalCount / 8); i++) {
         pageNumbers.push(i);
     }
-
-
+    
     return (
         <nav>
             <ul className={styles.pagination}>
-                Страницы
+                {`${isLoading ? "" : "Страницы"}`}
                 {pageNumbers.map(number => (
                     <li key={number}>
-                       <button className={styles.pageItem} onClick={() => paginate(number)}>
+                       <button 
+                        className={currentPage === number ? styles.current : styles.pageItem}
+                        onClick={() => paginate(number)}
+                        >
                             {number}
                         </button>         
                     </li>

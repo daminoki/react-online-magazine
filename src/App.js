@@ -18,6 +18,7 @@ function App() {
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
   const [totalCount, setTotalCount] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(0);
 
   const searchParams = {
     p: 1,
@@ -49,12 +50,9 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
-
   const paginate = (pageNumber) => {
     searchParams.p = pageNumber;
+    setCurrentPage(pageNumber)
     fetchItems();
   };
 
@@ -115,7 +113,7 @@ function App() {
             onFavorite={onFavorite}
             isLoading={isLoading}
           />
-          <Pagination totalCount={totalCount} paginate={paginate} />
+          <Pagination totalCount={totalCount} paginate={paginate} isLoading={isLoading} currentPage={currentPage} />
         </Route>
 
         <Route path="/favorites" exact>
