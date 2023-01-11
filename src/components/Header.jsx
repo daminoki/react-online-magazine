@@ -20,7 +20,7 @@ function Header(props) {
             <ul className="headerLeft">
                 <li className="d-flex">
                     <img onClick={props.onClickCart} className ="cu-p mr-10" width={18} height={18} src="./img/cart.svg" alt="Корзина" />
-                    <span>{totalPrice} руб.</span>
+                    <span>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', trailingZeroDisplay: 'stripIfInteger' }).format(totalPrice)}</span>
                 </li>
                 <li>
                     <Link to="/favorites">

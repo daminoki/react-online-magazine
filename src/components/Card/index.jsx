@@ -43,7 +43,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClic
             <div className="d-flex justify-between align-center">
                 <div className="d-flex flex-column">
                     <span>Цена:</span>
-                    <b>{card.price} руб.</b>
+                    <b>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', trailingZeroDisplay: 'stripIfInteger' }).format(card.price)}</b>
                 </div>
                 {onClickAdd && <img className={styles.plus} onClick={handleClick} src={isItemAdded(card.title) ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />}
             </div>

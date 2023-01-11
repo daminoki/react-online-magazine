@@ -46,3 +46,22 @@
         opacity: 0.5;
     }
 }
+.rating-wrapper {
+    position: relative;
+}
+
+.rating-empty,
+.rating-full {
+    height: 24px;
+    background-repeat: repeat-x;
+    position: absolute;
+}
+
+.rating-empty {
+    background-image: url('../../public/img/star-empty.svg');
+    width: 120px;
+}
+
+.rating-full {
+    background-image: url('../../public/img/star-full.svg');
+}

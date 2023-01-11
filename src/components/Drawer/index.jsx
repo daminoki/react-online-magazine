@@ -62,7 +62,7 @@ function Drawer({ onClickClose, items, onRemove, opened }) {
                                         </div>
                                         <div className="mr-20 flex">
                                             <p className="mb-5">{item.title}</p>
-                                            <b>{item.price} руб.</b>
+                                            <b>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', trailingZeroDisplay: 'stripIfInteger' }).format(item.price)}</b>
                                         </div>
                                         <img onClick={() => onRemove(item.id)} className={styles.removeBtn} src="./img/button-remove.svg" alt="Remove" />
                                     </div>
