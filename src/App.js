@@ -26,7 +26,7 @@ function App() {
   const searchParams = {
     p: 1,
     l: 8,
-    search: ""
+    search: searchValue
   }
 
   const fetchItems = async () => {
@@ -59,8 +59,9 @@ function App() {
     fetchItems();
   };
 
-  const handleSearchInput = (event) => {
-    setSearchValue(event.target.value);
+  const handleSearchInput = (e) => {
+    setSearchValue(e.target.value);
+    fetchItems();
   }
 
   const onAddToCart = async (item) => {
@@ -111,8 +112,7 @@ function App() {
       <div className="wrapper clear">
         <Drawer items={cartItems} onClickClose={() => setCartOpened(false)} onRemove={onRemoveCartItem} opened={cartOpened} />
         <Header onClickCart={() => setCartOpened(true)} />
-        <CardPopup currentItem={currentItem} opened={cardPopupOpened} handleClickClose={(item) => setCardPopupOpened(false)} />
-
+        
         <Route path="/" exact>
           <Home 
             items={items}
@@ -124,7 +124,7 @@ function App() {
             isLoading={isLoading}
             handleCardClick={handleCardClick}
           />
-          <Pagination totalCount={totalCount} paginate={paginate} isLoading={isLoading} currentPage={currentPage} />
+          <Pagination totalCount={totalCount} paginate={paginate} isLoading={isLoading} currentPage={currentPage} itemsPerPage={searchParams.l} />
 
         </Route>
 
@@ -139,6 +139,8 @@ function App() {
           <Orders />
         </Route>
       </div>
+
+      <CardPopup currentItem={currentItem} opened={cardPopupOpened} handleClickClose={(item) => setCardPopupOpened(false)} />
     </AppContext.Provider>
   );
 }

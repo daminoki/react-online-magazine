@@ -1,10 +1,9 @@
 import React from "react";
 import styles from './Pagination.module.scss';
 
-function Pagination ({ totalCount, paginate, isLoading, currentPage }) {
+function Pagination ({ totalCount, paginate, isLoading, currentPage, itemsPerPage }) {
     const pageNumbers =[];
-
-    for (let i = 1; i <= Math.ceil(totalCount / 8); i++) {
+    for (let i = 1; i <= Math.ceil(totalCount / itemsPerPage); i++) {
         pageNumbers.push(i);
     }
     
