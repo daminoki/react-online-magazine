@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from '../components/Card'
 import { AppContext } from '../App'
+import EmptyState from '../components/EmptyState';
 
 function Favorites({ onAddToCart, onFavorite }) {
 const { favorites } = React.useContext(AppContext);
@@ -11,19 +12,29 @@ const { favorites } = React.useContext(AppContext);
                 <h1>Мои закладки</h1>
             </div>
 
-            <div className="cards">
+            
+                { 
+                    favorites.length > 0 &&
+                        <div className="cards">
+                            {favorites.map((obj) => (
+                                <Card
+                                    key={obj.id}
+                                    card={obj}
+                                    onClickAdd={(item) => onAddToCart(item)}
+                                    onClickFavorite={(item) => onFavorite(item)}
+                                />
+                            ))}
+                        </div>
+                }
+
                 {
-                favorites
-                .map((obj) => (
-                    <Card
-                        key={obj.id}
-                        card={obj}
-                        onClickAdd={(item) => onAddToCart(item)}
-                        onClickFavorite={(item) => onFavorite(item)}
-                    />
-                ))
+                    (!favorites.length) &&
+                        <EmptyState 
+                            img={`./img/cry-emodzi.png`}
+                            title={`Закладок нет`}
+                            subtitle={`Вы ничего не добавляли в закладки`}
+                        />
                 }          
-            </div>
         </div>
     );
 }

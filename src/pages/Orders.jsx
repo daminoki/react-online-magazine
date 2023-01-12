@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import Card from '../components/Card';
 import CardSkeleton from '../components/CardSkeleton';
+import EmptyState from '../components/EmptyState';
 
 function Orders() {
     const [orders, setOrders] = React.useState([]);
@@ -25,22 +26,36 @@ function Orders() {
             <div className="d-flex align-center justify-between mb-40">
                 <h1>Мои заказы</h1>
             </div>
-            
-            <div className="cards">
-                {isLoading
-                ? [...Array(8)].map((item, index) => (
-                    <CardSkeleton key={index} />
-                ))
-                : 
-                orders
-                .map((obj, index) => (
-                    <Card
-                        key={index}
-                        card={obj}
+
+            {
+                isLoading &&
+                    <div className="cards">
+                        {[...Array(8)].map((item, index) => (
+                            <CardSkeleton key={index} />
+                        ))}
+                    </div>
+            }
+
+            { 
+                orders.length > 0 && 
+                    <div className="cards">
+                        {orders.map((obj, index) => (
+                            <Card
+                                key={index}
+                                card={obj}
+                            />
+                        ))}
+                    </div>
+            }
+
+            {
+                (!isLoading && !orders.length) &&
+                    <EmptyState 
+                        img={`./img/sad-emodzi.png`}
+                        title={`Заказов нет`}
+                        subtitle={`Оформите хотя бы один заказ`}
                     />
-                ))
-                }          
-            </div>
+            }
         </div>
     );
 }

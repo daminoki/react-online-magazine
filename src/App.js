@@ -125,7 +125,6 @@ function App() {
             handleCardClick={handleCardClick}
           />
           <Pagination totalCount={totalCount} paginate={paginate} isLoading={isLoading} currentPage={currentPage} itemsPerPage={searchParams.l} />
-
         </Route>
 
         <Route path="/favorites" exact>

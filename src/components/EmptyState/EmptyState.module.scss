@@ -1,0 +1,62 @@
+.greenButton {
+    min-width: 245px;
+    height: 55px;
+    background-color: #9DD558;
+    border-radius: 18px;
+    border: 0;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  
+    &:hover {
+      background-color: lighten(#9DD558, 5%);
+    }
+  
+    &:active {
+      background-color: darken(#9DD558, 5%);
+    }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 290px;
+  margin: 0 auto;
+
+  .greenButton {
+    position: relative;
+
+
+    &:hover {
+      img {
+        transform: rotateY(180deg) translateX(5px);
+      }
+    }
+
+    img {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      transition: transform 0.15s ease-in-out;
+      transform: rotateY(180deg);
+    }
+  }
+}
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+}
+
+.subtitle {
+  opacity: 0.4;
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+}
