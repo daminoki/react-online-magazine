@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './Drawer.module.scss';
-import Info from "../Info/Info";
+import Info from "../Info";
 import { AppContext } from '../../App';
 import axios from 'axios';
 

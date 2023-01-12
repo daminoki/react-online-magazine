@@ -1,12 +1,9 @@
 import React from 'react'
 import axios from 'axios';
 import Card from '../components/Card';
-import { AppContext } from '../App';
 import CardSkeleton from '../components/CardSkeleton';
 
-
 function Orders() {
-    const { onAddToCart, onFavorite } = React.useContext(AppContext);
     const [orders, setOrders] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
@@ -28,7 +25,7 @@ function Orders() {
             <div className="d-flex align-center justify-between mb-40">
                 <h1>Мои заказы</h1>
             </div>
-
+            
             <div className="cards">
                 {isLoading
                 ? [...Array(8)].map((item, index) => (
