@@ -8,6 +8,7 @@ import Favorites from './pages/Favorites';
 import Orders from './pages/Orders';
 import Pagination from './components/Pagination';
 import CardPopup from './components/CardPopup';
+import { getItems, updateItems } from './api';
 
 export const AppContext = React.createContext({});
 
@@ -22,31 +23,28 @@ function App() {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [cardPopupOpened, setCardPopupOpened] = React.useState(false);
   const [currentItem, setCurrentItem] = React.useState([]);
+  const [itemsPerPage] = React.useState(8);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem)
 
   const searchParams = {
-    p: 1,
-    l: 8,
     search: searchValue
   }
 
   const fetchItems = async () => {
-    const { data: { items, count } } = await axios.get(`https://63a57933318b23efa794782b.mockapi.io/items`, { params: searchParams } );
+    const { data: { items, count } } = await getItems({ params: searchParams });
     setItems(items);
     setTotalCount(count);
+    setFavorites(items.filter((item) => item.isFavorite));
+    setCartItems(items.filter((item) => item.isAdded));
   }
 
   React.useEffect(() => {
     async function fetchData() {
-      const [ cartResponse, favoritesResponse ] = await Promise.all([
-        axios.get(`https://63a57933318b23efa794782b.mockapi.io/cart`), 
-        axios.get(`https://63a57933318b23efa794782b.mockapi.io/favorites`),
-        fetchItems()
-      ])
-
+      await fetchItems()
       setIsLoading(false);
-
-      setCartItems(cartResponse.data);
-      setFavorites(favoritesResponse.data);
     }
 
     fetchData();
@@ -54,7 +52,6 @@ function App() {
   }, []);
 
   const paginate = (pageNumber) => {
-    searchParams.p = pageNumber;
     setCurrentPage(pageNumber)
     fetchItems();
   };
@@ -84,17 +81,10 @@ function App() {
   }
 
   const onFavorite = async (item) => {
-    try { 
-        if (favorites.find(favItem => favItem.title === item.title)) {
-          axios.delete(`https://63a57933318b23efa794782b.mockapi.io/favorites/${item.id}`)
-          setFavorites(prev => prev.filter(i => i.title !== item.title));
-        } else {
-          const { data } = await axios.post(`https://63a57933318b23efa794782b.mockapi.io/favorites`, item);
-          setFavorites(prev => [...prev, data]);
-        }
-    } catch (error) {
-        alert('Не удалось добавить в закладки');
-    }
+    // loading for favorites btn true
+    await updateItems(item.id, item);
+    await fetchItems();
+    // loading for favorites btn false
   } 
 
   const isItemAdded = (title) => {
@@ -115,7 +105,7 @@ function App() {
         
         <Route path="/" exact>
           <Home 
-            items={items}
+            items={currentItems}
             cartItems={cartItems}
             searchValue={searchValue}
             handleSearchInput={handleSearchInput}
@@ -124,7 +114,13 @@ function App() {
             isLoading={isLoading}
             handleCardClick={handleCardClick}
           />
-          <Pagination totalCount={totalCount} paginate={paginate} isLoading={isLoading} currentPage={currentPage} itemsPerPage={searchParams.l} />
+          <Pagination 
+            paginate ={paginate} 
+            totalCount={totalCount} 
+            isLoading={isLoading} 
+            currentPage={currentPage} 
+            itemsPerPage={itemsPerPage} 
+          />
         </Route>
 
         <Route path="/favorites" exact>

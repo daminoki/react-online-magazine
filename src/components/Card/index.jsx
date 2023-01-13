@@ -3,7 +3,6 @@ import styles from './Card.module.scss'
 import { AppContext } from '../../App'
 
 function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClick }) {
-    const [isFavorite, setIsFavorite] = React.useState(card.isFavorite);
     const { isItemAdded } = React.useContext(AppContext);
 
     const handleClick = () => {
@@ -15,25 +14,14 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClic
     }
 
     const handleFavoriteClick = () => {
-        setIsFavorite(!isFavorite);
+        onClickFavorite({ ...card, isFavorite: !card.isFavorite});
     }
-
-    const isFirstRender = React.useRef(true);
-
-    React.useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
-        onClickFavorite({ ...card, isFavorite: isFavorite});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFavorite]);
 
     return (
         <div className={styles.card}>
             <div className={styles.favorite}>
                 <button onClick={handleFavoriteClick}>
-                    {onClickFavorite && <img src={isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />}
+                    {onClickFavorite && <img src={card.isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />}
                 </button>
             </div>
             <div className="d-flex flex-column align-center">

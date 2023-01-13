@@ -15,7 +15,7 @@ function Home({
     const renderItems = () => {
         return (
             isLoading
-            ? [...Array(12)].map((item, index) => (
+            ? [...Array(8)].map((item, index) => (
                     <CardSkeleton key={index} />
                 ))
             : items.filter(item => item.title.toLowerCase().includes(searchValue))
