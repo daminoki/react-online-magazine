@@ -48,7 +48,6 @@ function App() {
     }
 
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const paginate = (pageNumber) => {
@@ -62,22 +61,13 @@ function App() {
   }
 
   const onAddToCart = async (item) => {
-    try {
-      if (cartItems.find(i => i.title === item.title)) {
-        axios.delete(`https://63a57933318b23efa794782b.mockapi.io/cart/${item.id}`);
-        setCartItems(prev => prev.filter(i => i.title !== item.title))
-      } else {
-        const { data } = await axios.post(`https://63a57933318b23efa794782b.mockapi.io/cart`, item);
-        setCartItems(prev => [...prev, data]);
-      }
-    } catch (error) {
-      alert('Не удалось добавить в корзину');
-    }
+    await updateItems(item.id, item);
+    await fetchItems();
   }
   
-  const onRemoveCartItem = (id) => {
-    axios.delete(`https://63a57933318b23efa794782b.mockapi.io/cart/${id}`);
-    setCartItems(prev => prev.filter(i => i.id !== id));
+  const onRemoveCartItem = async (item) => {
+    await updateItems(item.id, item);
+    await fetchItems();
   }
 
   const onFavorite = async (item) => {

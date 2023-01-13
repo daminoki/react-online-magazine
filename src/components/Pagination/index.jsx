@@ -1,5 +1,4 @@
 import React from "react";
-import ReactPaginate from "react-paginate";
 import styles from './Pagination.module.scss';
 
 function Pagination ({ totalCount, itemsPerPage, isLoading, currentPage, paginate }) {

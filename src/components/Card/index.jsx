@@ -5,8 +5,8 @@ import { AppContext } from '../../App'
 function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClick }) {
     const { isItemAdded } = React.useContext(AppContext);
 
-    const handleClick = () => {
-        onClickAdd(card);
+    const handleAddedClick = () => {
+        onClickAdd({...card, isAdded: !card.isAdded});
     }
 
     const onCardClick = () => {
@@ -33,7 +33,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClic
                     <span>Цена:</span>
                     <b>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', trailingZeroDisplay: 'stripIfInteger' }).format(card.price)}</b>
                 </div>
-                {onClickAdd && <img className={styles.plus} onClick={handleClick} src={isItemAdded(card.title) ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />}
+                {onClickAdd && <img className={styles.plus} onClick={handleAddedClick} src={card.isAdded ? "./img/button-checked.svg" : "./img/button-plus.svg"} alt="Add" />}
             </div>
         </div>
     );

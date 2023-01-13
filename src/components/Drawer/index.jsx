@@ -13,6 +13,10 @@ function Drawer({ onClickClose, items, onRemove, opened }) {
     const [isLoading, setIsLoading] = React.useState(false);
     const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
 
+    const handleRemoveClick = (item) => {
+        onRemove({...item, isAdded: !item.isAdded})
+    }
+
     React.useEffect(() => {
         if (opened) {
           document.body.style.overflow = 'hidden';
@@ -64,7 +68,7 @@ function Drawer({ onClickClose, items, onRemove, opened }) {
                                             <p className="mb-5">{item.title}</p>
                                             <b>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', trailingZeroDisplay: 'stripIfInteger' }).format(item.price)}</b>
                                         </div>
-                                        <img onClick={() => onRemove(item.id)} className={styles.removeBtn} src="./img/button-remove.svg" alt="Remove" />
+                                        <img onClick={() => handleRemoveClick(item)} className={styles.removeBtn} src="./img/button-remove.svg" alt="Remove" />
                                     </div>
                         })
                     }
