@@ -3,8 +3,7 @@ import styles from './Drawer.module.scss';
 import Info from "../Info";
 import { AppContext } from '../../App';
 import axios from 'axios';
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
+import { updateItem } from '../../api';
 
 function Drawer({ onClickClose, items, onRemove, opened }) {
     const { cartItems, setCartItems } = React.useContext(AppContext);
@@ -12,6 +11,8 @@ function Drawer({ onClickClose, items, onRemove, opened }) {
     const [orderId, setOrderId] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(false);
     const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
+
+    console.log(items)
 
     const handleRemoveClick = (item) => {
         onRemove({...item, isAdded: !item.isAdded})
@@ -37,8 +38,7 @@ function Drawer({ onClickClose, items, onRemove, opened }) {
 
             for (let i = 0; i < cartItems.length; i++) {
                 const item = cartItems[i];
-                await axios.delete('https://63a57933318b23efa794782b.mockapi.io/cart/' + item.id);
-                await delay(1000);
+                await updateItem(item.id, { ...item, isAdded: false });
             }
 
         } catch (error) {

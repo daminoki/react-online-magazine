@@ -8,7 +8,7 @@ import Favorites from './pages/Favorites';
 import Orders from './pages/Orders';
 import Pagination from './components/Pagination';
 import CardPopup from './components/CardPopup';
-import { getItems, updateItems } from './api';
+import { getItems, updateItem } from './api';
 
 export const AppContext = React.createContext({});
 
@@ -61,18 +61,18 @@ function App() {
   }
 
   const onAddToCart = async (item) => {
-    await updateItems(item.id, item);
+    await updateItem(item.id, item);
     await fetchItems();
   }
   
   const onRemoveCartItem = async (item) => {
-    await updateItems(item.id, item);
+    await updateItem(item.id, item);
     await fetchItems();
   }
 
   const onFavorite = async (item) => {
     // loading for favorites btn true
-    await updateItems(item.id, item);
+    await updateItem(item.id, item);
     await fetchItems();
     // loading for favorites btn false
   } 
