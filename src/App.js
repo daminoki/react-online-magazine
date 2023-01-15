@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Route } from 'react-router-dom';
 import Header from './components/Header';
 import Drawer from './components/Drawer';

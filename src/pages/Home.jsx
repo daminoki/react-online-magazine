@@ -1,6 +1,7 @@
 import Card from '../components/Card'
 import CardSkeleton from '../components/CardSkeleton'
 import React from 'react'
+import Slider from '../components/Slider';
 
 function Home({ 
     items,
@@ -32,6 +33,8 @@ function Home({
     }
 
     return (
+        <>
+        <Slider />
         <div className="content p-40">
             <div className="d-flex align-center justify-between mb-40">
                 <h1>{searchValue ? `Поиск по запросу: "${searchValue}"` : `Все кроссовки`}</h1>
@@ -45,6 +48,7 @@ function Home({
                 {renderItems()}          
             </div>
       </div>
+      </>
     );
 } 
 
