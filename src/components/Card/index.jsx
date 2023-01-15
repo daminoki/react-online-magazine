@@ -28,7 +28,7 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClic
                 <img className="cu-p" onClick={onCardClick} width={133} height={112} src={`./img/sneakers/${card.image}.png`} alt="" />
                 <h5>{card.title}</h5>
             </div>
-            <div className="d-flex justify-between align-center">
+            <div className={styles['price-wrapper']}>
                 <div className="d-flex flex-column">
                     <span>Цена:</span>
                     <b>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', trailingZeroDisplay: 'stripIfInteger' }).format(card.price)}</b>
