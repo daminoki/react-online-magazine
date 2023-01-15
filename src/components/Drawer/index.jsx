@@ -5,7 +5,7 @@ import { AppContext } from '../../App';
 import axios from 'axios';
 import { updateItem } from '../../api';
 
-function Drawer({ onClickClose, items, onRemove, opened }) {
+function Drawer({ onClickClose, items, onRemove, opened, updateItems }) {
     const { cartItems, setCartItems } = React.useContext(AppContext);
     const [isOrderComplete, setIsOrderComplete] = React.useState(false);
     const [orderId, setOrderId] = React.useState(null);
@@ -40,6 +40,8 @@ function Drawer({ onClickClose, items, onRemove, opened }) {
                 const item = cartItems[i];
                 await updateItem(item.id, { ...item, isAdded: false });
             }
+
+            updateItems();
 
         } catch (error) {
             alert('Ошибка при создании заказа');
