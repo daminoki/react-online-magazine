@@ -8,6 +8,10 @@ import Orders from './pages/Orders';
 import Pagination from './components/Pagination';
 import CardPopup from './components/CardPopup';
 import { getItems, updateItem } from './api';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+import AuthDetails from './components/AuthDetails';
+
 
 export const AppContext = React.createContext({});
 
@@ -97,7 +101,11 @@ function App() {
           updateItems={fetchItems} 
         />
         <Header onClickCart={() => setCartOpened(true)} />
-        
+
+        <SignIn />
+        <SignUp />
+        <AuthDetails />
+      
         <Route path="/" exact>
           <Home 
             items={currentItems}
@@ -130,7 +138,11 @@ function App() {
         </Route>
       </div>
 
-      <CardPopup currentItem={currentItem} opened={cardPopupOpened} handleClickClose={(item) => setCardPopupOpened(false)} />
+      <CardPopup 
+        currentItem={currentItem} 
+        opened={cardPopupOpened} 
+        handleClickClose={(item) => setCardPopupOpened(false)} 
+      />
     </AppContext.Provider>
   );
 }
