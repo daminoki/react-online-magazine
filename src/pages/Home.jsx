@@ -35,7 +35,7 @@ function Home({
     return (
         <>
         <Slider />
-        <div className="content p-40">
+        <div id='main-goods-section' className="content p-40">
             <div className="d-flex align-center justify-between mb-40">
                 <h1>{searchValue ? `Поиск по запросу: "${searchValue}"` : `Все кроссовки`}</h1>
                 <div className="search-block d-flex">

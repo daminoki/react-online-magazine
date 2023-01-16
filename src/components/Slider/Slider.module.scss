@@ -1,9 +1,44 @@
 .wrapper {
     background-color: #F4EFE9;
     display: flex;
+    border-radius: 20px;
 }
 
 .info-wrapper {
     display: flex;
     flex-direction: column;
+}
+
+.title {
+    margin-top: 32px !important;
+    margin-bottom: 0 !important;
+    color: #8BB43C;
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 46px;
+    text-align: start;
+    padding-left: 60px;
+
+    span {
+        color: #000;
+    }
+}
+
+.buy-button {
+    background-color: #A5D364;
+    padding: 14px;
+    color: #FFF !important;
+    border-radius: 110px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 10px !important;
+    margin-left: 60px !important;
+}
+
+.logo {
+    width: 120px !important;
+    height: 60px !important;
+    padding-top: 20px;
+    padding-left: 20px;
 }
