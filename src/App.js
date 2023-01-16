@@ -8,10 +8,9 @@ import Orders from './pages/Orders';
 import Pagination from './components/Pagination';
 import CardPopup from './components/CardPopup';
 import { getItems, updateItem } from './api';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import AuthDetails from './components/AuthDetails';
-
+import UserProfile from './pages/UserProfile';
+import { auth } from "./firebase";
+import { onAuthStateChanged } from 'firebase/auth';
 
 export const AppContext = React.createContext({});
 
@@ -27,6 +26,7 @@ function App() {
   const [cardPopupOpened, setCardPopupOpened] = React.useState(false);
   const [currentItem, setCurrentItem] = React.useState([]);
   const [itemsPerPage] = React.useState(8);
+  const [authUser, setAuthUser] = React.useState(null);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -89,6 +89,19 @@ function App() {
     setCurrentItem(item);
   }
 
+  React.useEffect(() => {
+    const listen = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setAuthUser(user);
+        } else {
+            setAuthUser(null);
+        }
+    });
+
+    return () => {
+        listen();
+    }
+}, []);
 
   return (
     <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, setCartOpened, setCartItems, onAddToCart, onFavorite }}>
@@ -98,14 +111,12 @@ function App() {
           onClickClose={() => setCartOpened(false)} 
           onRemove={onRemoveCartItem} 
           opened={cartOpened} 
-          updateItems={fetchItems} 
+          updateItems={fetchItems}
+          authUser={authUser}
+          handleOrderClick={() => setCartOpened(false)}
         />
         <Header onClickCart={() => setCartOpened(true)} />
 
-        <SignIn />
-        <SignUp />
-        <AuthDetails />
-      
         <Route path="/" exact>
           <Home 
             items={currentItems}
@@ -135,6 +146,10 @@ function App() {
 
         <Route path="/orders" exact>
           <Orders />
+        </Route>
+
+        <Route path="/user" exact>
+          <UserProfile authUser={authUser} />
         </Route>
       </div>
 

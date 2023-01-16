@@ -5,7 +5,7 @@ import styles from './Slider.module.scss';
 
 function Slider() {
     return (
-        <Carousel showStatus={false} showArrows={false} autoPlay={true} interval={3000} infiniteLoop={true}>
+        <Carousel showStatus={false} showArrows={false} autoPlay={true} interval={3000} infiniteLoop={true} showThumbs={false} >
             <div className='p-40'>
                 <div className={styles.wrapper}>
                     <div className={styles['info-wrapper']}>

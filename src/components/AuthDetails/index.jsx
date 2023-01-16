@@ -1,23 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { auth } from "../../firebase";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
-const AuthDetails = () => {
-    const [authUser, setAuthUser] = React.useState(null);
-
-    useEffect(() => {
-        const listen = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setAuthUser(user);
-            } else {
-                setAuthUser(null);
-            }
-        });
-
-        return () => {
-            listen();
-        }
-    }, []);
+const AuthDetails = (props) => {
 
     const userSignOut = () => {
         signOut(auth).then(() => {
@@ -28,13 +13,13 @@ const AuthDetails = () => {
     return (
         <div>
             {
-            authUser ? 
+            props.authUser ? 
             <>
-            <p>{`Вы вошли в приложение под логином ${authUser.email}`}</p>
+            <p>{`Вы вошли в приложение под логином ${props.authUser.email}`}</p>
             <button onClick={userSignOut}>Выйти из приложения</button>
             </> 
             :
-            <p>Вы вышли из приложения</p>
+            <p>Зайдите в приложение или зарегистрируйтесь</p>
             }
         </div>
     )

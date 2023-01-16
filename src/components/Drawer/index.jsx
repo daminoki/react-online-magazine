@@ -1,18 +1,18 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import styles from './Drawer.module.scss';
 import Info from "../Info";
 import { AppContext } from '../../App';
 import axios from 'axios';
 import { updateItem } from '../../api';
 
-function Drawer({ onClickClose, items, onRemove, opened, updateItems }) {
+function Drawer({ onClickClose, items, onRemove, opened, updateItems, authUser, handleOrderClick }) {
     const { cartItems, setCartItems } = React.useContext(AppContext);
     const [isOrderComplete, setIsOrderComplete] = React.useState(false);
     const [orderId, setOrderId] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(false);
     const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
 
-    console.log(items)
 
     const handleRemoveClick = (item) => {
         onRemove({...item, isAdded: !item.isAdded})
@@ -88,9 +88,24 @@ function Drawer({ onClickClose, items, onRemove, opened, updateItems }) {
                         <b>{Math.round(totalPrice * 0.05)} руб.</b>
                     </li>
                     </ul>
-                    <button disabled={isLoading} onClick={onClickOrder} className={styles.greenButton}>Оформить заказ
-                    <img src="./img/arrow.svg" alt="arrow" />
+                    {!(authUser === null) ? 
+                    <button 
+                    disabled={isLoading} 
+                    onClick={onClickOrder} 
+                    className={styles.greenButton}>
+                        Оформить заказ
+                        <img src="./img/arrow.svg" alt="arrow" />
                     </button>
+                    : <Link to="/user">
+                        <button 
+                            disabled={isLoading} 
+                            className={styles.greenButton}
+                            onClick={handleOrderClick}>
+                                Оформить заказ
+                                <img src="./img/arrow.svg" alt="arrow" />
+                        </button>
+                    </Link>
+                    }        
                 </div>
                 </>
                     )
