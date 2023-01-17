@@ -1,25 +1,39 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
+import styles from './AuthDetails.module.scss';
 
-const AuthDetails = (props) => {
+const AuthDetails = ({ authUser, location}) => {
 
     const userSignOut = () => {
         signOut(auth).then(() => {
             alert('Вы вышли из приложения')
         }).catch(error => alert("Возникла ошибка при выходе из приложения"))
     }
-
     return (
-        <div>
-            {
-            props.authUser ? 
-            <>
-            <p>{`Вы вошли в приложение под логином ${props.authUser.email}`}</p>
-            <button onClick={userSignOut}>Выйти из приложения</button>
-            </> 
-            :
-            <p>Зайдите в приложение или зарегистрируйтесь</p>
+        <div className={styles.wrapper}>
+            {authUser &&
+                <>
+                    <p>{`Вы вошли в приложение под логином ${authUser.email}`}</p>
+                    <button onClick={userSignOut}>Выйти из приложения</button>
+                </> 
+            }
+
+            {(!authUser && location === '/sign-up') &&
+                <p className={styles['auth-description']}>Уже есть аккаунт? 
+                    <Link className={styles.link} to="sign-in">
+                        Войдите
+                    </Link>
+                </p>
+            }
+
+            {(!authUser && location === '/sign-in') &&
+                <p className={styles['auth-description']}>Еще не зарегистрированы? 
+                    <Link className={styles.link} to="sign-up">
+                        Зарегистрируйтесь
+                    </Link>
+                </p>
             }
         </div>
     )

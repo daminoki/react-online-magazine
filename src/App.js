@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
 import Home from './pages/Home';
@@ -8,7 +8,8 @@ import Orders from './pages/Orders';
 import Pagination from './components/Pagination';
 import CardPopup from './components/CardPopup';
 import { getItems, updateItem } from './api';
-import UserProfile from './pages/UserProfile';
+import UserSignUp from './pages/SignUp';
+import UserSignIn from './pages/SignIn';
 import { auth } from "./firebase";
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -31,6 +32,8 @@ function App() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem)
+
+  const location = useLocation();
 
   const searchParams = {
     search: searchValue
@@ -148,8 +151,12 @@ function App() {
           <Orders />
         </Route>
 
-        <Route path="/user" exact>
-          <UserProfile authUser={authUser} />
+        <Route path="/sign-up" exact>
+          <UserSignUp authUser={authUser} location={location.pathname} />
+        </Route>
+
+        <Route path="/sign-in" exact>
+          <UserSignIn authUser={authUser} location={location.pathname} />
         </Route>
       </div>
 

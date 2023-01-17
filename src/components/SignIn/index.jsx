@@ -1,6 +1,7 @@
 import React from "react";
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import styles from './SignIn.module.scss';
 
 const SignIn = () => {
     const [formValue, setFormValue] = React.useState({
@@ -28,24 +29,36 @@ const SignIn = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <h1>Войти</h1>
+        <div className={styles.wrapper}>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <h1 className={styles['form-title']}>Войдите в аккаунт</h1>
+                <label htmlFor="email">
+                    Email:
+                </label>
+                <input
+                        className={styles.input}
+                        id="email" 
+                        name="email" 
+                        type="email" 
+                        placeholder="Введите email" 
+                        value={formValue.email} 
+                        onChange={handleChange}
+                        required 
+                    />
+                <label htmlFor="password">
+                    Пароль:
+                </label>
                 <input 
-                    name="email" 
-                    type="email" 
-                    placeholder="Введите email" 
-                    value={formValue.email} 
-                    onChange={handleChange} 
-                />
-                <input 
-                    name="password" 
-                    type="password" 
-                    placeholder="Введите пароль"
-                    value={formValue.password} 
-                    onChange={handleChange} 
-                />
-                <button type="submit" onSubmit={handleSubmit}>Войти</button>
+                        className={styles.input}
+                        id="password"
+                        name="password" 
+                        type="password" 
+                        placeholder="Введите пароль"
+                        value={formValue.password} 
+                        onChange={handleChange} 
+                        required
+                    />
+                <button className={styles['button-submit']} type="submit" onSubmit={handleSubmit}>Войти</button>
             </form>
         </div>
     )

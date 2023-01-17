@@ -96,7 +96,7 @@ function Drawer({ onClickClose, items, onRemove, opened, updateItems, authUser, 
                         Оформить заказ
                         <img src="./img/arrow.svg" alt="arrow" />
                     </button>
-                    : <Link to="/user">
+                    : <Link to="/sign-up">
                         <button 
                             disabled={isLoading} 
                             className={styles.greenButton}

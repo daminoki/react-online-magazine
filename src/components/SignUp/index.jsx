@@ -1,6 +1,7 @@
 import React from "react";
 import { auth } from '../../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import styles from './SignUp.module.scss';
 
 const SignUp = () => {
     const [formValue, setFormValue] = React.useState({
@@ -28,24 +29,36 @@ const SignUp = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <h1>Зарегистрируйтесь</h1>
-                <input 
+        <div className={styles.wrapper}>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <h1 className={styles['form-title']}>Зарегистрируйтесь, чтобы продолжить покупки</h1>
+                <label htmlFor="email">
+                    Email:
+                </label>
+                <input
+                    className={styles.input}
+                    id="email"
                     name="email" 
                     type="email" 
                     placeholder="Введите email" 
                     value={formValue.email} 
-                    onChange={handleChange} 
+                    onChange={handleChange}
+                    required 
                 />
-                <input 
+                <label htmlFor="password">
+                    Пароль:
+                </label>
+                <input
+                    className={styles.input}
+                    id="password"
                     name="password" 
                     type="password" 
                     placeholder="Введите пароль"
                     value={formValue.password} 
-                    onChange={handleChange} 
+                    onChange={handleChange}
+                    required 
                 />
-                <button type="submit" onSubmit={handleSubmit}>Зарегистрироваться</button>
+                <button className={styles['button-submit']} type="submit" onSubmit={handleSubmit}>Зарегистрироваться</button>
             </form>
         </div>
     )
