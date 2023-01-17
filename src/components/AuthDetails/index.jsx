@@ -14,10 +14,10 @@ const AuthDetails = ({ authUser, location}) => {
     return (
         <div className={styles.wrapper}>
             {authUser &&
-                <>
+                <div className="d-flex flex-column align-center">
                     <p>{`Вы вошли в приложение под логином ${authUser.email}`}</p>
-                    <button onClick={userSignOut}>Выйти из приложения</button>
-                </> 
+                    <button className={styles['button-exit']} onClick={userSignOut}>Выйти из приложения</button>
+                </div> 
             }
 
             {(!authUser && location === '/sign-up') &&

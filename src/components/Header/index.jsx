@@ -18,8 +18,13 @@ function Header(props) {
                 </div>
             </Link>
             <ul className="headerLeft">
+                <li>
+                    <Link to="/sign-up">
+                        <img className="cu-p" src='./img/user.svg' width={18} height={18} alt="Пользователь" />
+                    </Link>
+                </li>
                 <li className="d-flex">
-                    <img onClick={props.onClickCart} className ="cu-p mr-10" width={18} height={18} src="./img/cart.svg" alt="Корзина" />
+                    <img onClick={props.onClickCart} className="cu-p mr-10" width={18} height={18} src="./img/cart.svg" alt="Корзина" />
                     <span>{new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', trailingZeroDisplay: 'stripIfInteger' }).format(totalPrice)}</span>
                 </li>
                 <li>
@@ -29,7 +34,7 @@ function Header(props) {
                 </li>
                 <li>
                     <Link to="/orders">
-                        <img width={18} height={18} src="./img/user.svg" alt="Пользователь" />
+                        <img width={20} height={20} src="./img/orders-icon.svg" alt="Заказы" />
                     </Link>
                 </li>
             </ul>

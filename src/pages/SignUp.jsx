@@ -2,11 +2,17 @@ import React from 'react';
 import AuthDetails from '../components/AuthDetails';
 import SignUp from '../components/SignUp';
 
-function UserSignUp(props) {
+function UserSignUp({ authUser, location }) {
     return (
         <>
-            <SignUp />
-            <AuthDetails authUser={props.authUser} location={props.location} />
+            {authUser ?
+                <AuthDetails authUser={authUser} location={location} />
+            :
+                <>
+                    <SignUp />
+                    <AuthDetails authUser={authUser} location={location} />
+                </>
+            }
         </>
     );
 }

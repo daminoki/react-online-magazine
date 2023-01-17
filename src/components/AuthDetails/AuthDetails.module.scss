@@ -14,3 +14,20 @@
 .link {
     text-decoration: underline !important;
 }
+
+.button-exit {
+    border: none;
+    background-color: #9DD558;
+    padding: 15px;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  
+    &:hover {
+      background-color: lighten(#9DD558, 5%);
+    }
+}
