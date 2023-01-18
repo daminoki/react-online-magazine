@@ -1,8 +1,9 @@
 import React from 'react' 
+import { Link } from 'react-router-dom';
 import styles from './Card.module.scss'
 import { AppContext } from '../../App'
 
-function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClick }) {
+function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClick, authUser }) {
     const { isItemAdded } = React.useContext(AppContext);
 
     const handleAddedClick = () => {
@@ -20,9 +21,16 @@ function Card({ card, onClickAdd, onClickFavorite, added = false, handleCardClic
     return (
         <div className={styles.card}>
             <div className={styles.favorite}>
-                <button onClick={handleFavoriteClick}>
-                    {onClickFavorite && <img src={card.isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />}
-                </button>
+                {(authUser) ? 
+                    <button onClick={handleFavoriteClick}>
+                        {onClickFavorite && <img src={card.isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />}
+                    </button> : 
+                    <Link to="/sign-in">
+                        <button>
+                            {onClickFavorite && <img src={card.isFavorite ? "./img/card-liked.svg" : "./img/card-unliked.svg"} alt="Unliked" />}
+                        </button>
+                    </Link>
+                }
             </div>
             <div className="d-flex flex-column align-center">
                 <img className="cu-p" onClick={onCardClick} width={133} height={112} src={`./img/sneakers/${card.image}.png`} alt="" />

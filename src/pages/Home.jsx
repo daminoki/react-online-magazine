@@ -10,7 +10,8 @@ function Home({
     onAddToCart, 
     onFavorite,
     isLoading,
-    handleCardClick
+    handleCardClick,
+    authUser
 }) {
 
     const renderItems = () => {
@@ -27,6 +28,7 @@ function Home({
                         onClickAdd={(item) => onAddToCart(item)}
                         onClickFavorite={(item) => onFavorite(item)}
                         handleCardClick={handleCardClick}
+                        authUser={authUser}
                     />
                 ))
         )

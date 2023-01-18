@@ -12,7 +12,6 @@ const { favorites } = React.useContext(AppContext);
                 <h1>Мои закладки</h1>
             </div>
 
-            
                 { 
                     favorites.length > 0 &&
                         <div className="cards">

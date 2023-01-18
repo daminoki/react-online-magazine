@@ -12,6 +12,7 @@ import UserSignUp from './pages/SignUp';
 import UserSignIn from './pages/SignIn';
 import { auth } from "./firebase";
 import { onAuthStateChanged } from 'firebase/auth';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 export const AppContext = React.createContext({});
 
@@ -77,10 +78,8 @@ function App() {
   }
 
   const onFavorite = async (item) => {
-    // loading for favorites btn true
     await updateItem(item.id, item);
     await fetchItems();
-    // loading for favorites btn false
   } 
 
   const isItemAdded = (title) => {
@@ -130,6 +129,7 @@ function App() {
             onFavorite={onFavorite}
             isLoading={isLoading}
             handleCardClick={handleCardClick}
+            authUser={authUser}
           />
           <Pagination 
             paginate ={paginate} 
@@ -140,10 +140,20 @@ function App() {
           />
         </Route>
 
-        <Route path="/favorites" exact>
+        {/* <ProtectedRoute
+          path="/favorites"
+          authUser={authUser}
+          component={
+            <Favorites
+              onAddToCart={onAddToCart}
+              onFavorite={onFavorite} 
+            />}
+        /> */}
+
+        <Route path="/favorites">
           <Favorites 
-          onAddToCart={onAddToCart}
-          onFavorite={onFavorite}
+            onAddToCart={onAddToCart}
+            onFavorite={onFavorite}
           />
         </Route>
 
