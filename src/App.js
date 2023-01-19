@@ -35,6 +35,7 @@ function App() {
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem)
 
   const location = useLocation();
+  console.log(location.pathname)
 
   const searchParams = {
     search: searchValue
@@ -117,7 +118,8 @@ function App() {
           authUser={authUser}
           handleOrderClick={() => setCartOpened(false)}
         />
-        <Header onClickCart={() => setCartOpened(true)} />
+        {(location.pathname === '/' || location.pathname === '/favorites' || location.pathname === '/orders') 
+          && <Header onClickCart={() => setCartOpened(true)} />}
 
         <Route path="/" exact>
           <Home 
@@ -139,16 +141,6 @@ function App() {
             itemsPerPage={itemsPerPage} 
           />
         </Route>
-
-        {/* <ProtectedRoute
-          path="/favorites"
-          authUser={authUser}
-          component={
-            <Favorites
-              onAddToCart={onAddToCart}
-              onFavorite={onFavorite} 
-            />}
-        /> */}
 
         <Route path="/favorites">
           <Favorites 
